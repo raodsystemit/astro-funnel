@@ -1,20 +1,43 @@
 ---
+import ContactPopUp from '../components/ContactPopUp.astro';
+
 const navLinks = [
   { name: "Inicio", href: "#inicio" },
   { name: "Beneficios", href: "#beneficios" },
   { name: "Testimonios", href: "#testimonios" },
   { name: "Contacto", href: "#contacto" },
 ];
+const buyLink = "#comprar"; // Cambia esto por tu enlace real
 ---
 
-<header class="fixed w-full z-50 bg-white/80 backdrop-blur shadow-md">
+<style is:global>
+@keyframes pulse-glow {
+  0% {
+    box-shadow: 0 0 0 0 rgba(255, 221, 51, 0.7), 0 4px 16px 0 rgba(255, 221, 51, 0.3);
+    filter: brightness(1);
+  }
+  50% {
+    box-shadow: 0 0 24px 8px rgba(255, 221, 51, 0.9), 0 4px 32px 0 rgba(255, 221, 51, 0.5);
+    filter: brightness(1.15);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(255, 221, 51, 0.7), 0 4px 16px 0 rgba(255, 221, 51, 0.3);
+    filter: brightness(1);
+  }
+}
+.cta-pulse {
+  animation: pulse-glow 1.5s infinite;
+}
+</style>
+
+<header class="fixed w-full z-50 bg-transparent backdrop-blur-none shadow-lg">
   <nav class="max-w-6xl mx-auto flex items-center justify-between px-4 py-3">
-    <a href="#inicio" class="text-2xl font-bold text-gray-800 tracking-tight"
-      >MiFunnel</a
-    >
+    <a href="#inicio" class="text-2xl font-extrabold text-yellow-400 tracking-tight drop-shadow">
+      EasyWay
+    </a>
     <button
       id="menu-btn"
-      class="md:hidden text-gray-700 focus:outline-none"
+      class="md:hidden text-yellow-400 focus:outline-none"
       aria-label="Abrir menú"
     >
       <svg
@@ -30,34 +53,70 @@ const navLinks = [
           d="M4 6h16M4 12h16M4 18h16"></path>
       </svg>
     </button>
-    <ul id="nav-menu" class="hidden md:flex space-x-8 font-medium">
+    <ul id="nav-menu" class="hidden md:flex space-x-8 font-semibold items-center">
       {
         navLinks.map((link) => (
           <li>
-            <a
-              href={link.href}
-              class="text-gray-700 hover:text-blue-600 transition-colors duration-200"
-            >
-              {link.name}
-            </a>
+            {link.name === "Contacto" ? (
+              <a
+                href="#contacto"
+                class="text-white hover:text-yellow-400 transition-colors duration-200"
+                onclick="event.preventDefault(); window.abrirPopupContacto && window.abrirPopupContacto();"
+              >
+                {link.name}
+              </a>
+            ) : (
+              <a
+                href={link.href}
+                class="text-white hover:text-yellow-400 transition-colors duration-200"
+              >
+                {link.name}
+              </a>
+            )}
           </li>
         ))
       }
+      <li>
+        <a
+          href={buyLink}
+          class="ml-4 px-5 py-2 bg-yellow-400 text-gray-900 font-bold rounded-lg shadow-lg hover:bg-yellow-500 hover:scale-105 transition-all duration-200 text-lg border-2 border-yellow-300 cta-pulse"
+        >
+          ¡Comprar ahora!
+        </a>
+      </li>
     </ul>
   </nav>
-  <ul id="mobile-menu" class="md:hidden hidden flex-col bg-white px-4 pb-4">
+  <ul id="mobile-menu" class="md:hidden hidden flex-col bg-black/70 px-4 pb-4 rounded-b-lg">
     {
       navLinks.map((link) => (
-        <li class="py-2 border-b">
-          <a
-            href={link.href}
-            class="block text-gray-700 hover:text-blue-600 transition-colors duration-200"
-          >
-            {link.name}
-          </a>
+        <li class="py-2 border-b border-gray-700">
+          {link.name === "Contacto" ? (
+            <a
+              href="#contacto"
+              class="block text-white hover:text-yellow-400 transition-colors duration-200"
+              onclick="event.preventDefault(); window.abrirPopupContacto && window.abrirPopupContacto();"
+            >
+              {link.name}
+            </a>
+          ) : (
+            <a
+              href={link.href}
+              class="block text-white hover:text-yellow-400 transition-colors duration-200"
+            >
+              {link.name}
+            </a>
+          )}
         </li>
       ))
     }
+    <li class="pt-3">
+      <a
+        href={buyLink}
+        class="block w-full text-center px-5 py-3 bg-yellow-400 text-gray-900 font-bold rounded-lg shadow-lg hover:bg-yellow-500 hover:scale-105 transition-all duration-200 text-lg border-2 border-yellow-300 cta-pulse"
+      >
+        ¡Comprar ahora!
+      </a>
+    </li>
   </ul>
   <script type="module" is:inline>
     // Menú hamburguesa
@@ -67,10 +126,11 @@ const navLinks = [
       mobileMenu.classList.toggle("hidden");
     });
 
-    // Scroll suave para todos los enlaces internos
+    // Scroll suave para todos los enlaces internos, excepto "Contacto"
     document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
       anchor.addEventListener("click", function (e) {
         const targetId = this.getAttribute("href").slice(1);
+        if (targetId === "contacto") return; // No hacer scroll para contacto
         const target = document.getElementById(targetId);
         if (target) {
           e.preventDefault();
@@ -87,3 +147,5 @@ const navLinks = [
     });
   </script>
 </header>
+
+<ContactPopUp />

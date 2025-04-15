@@ -1,0 +1,134 @@
+---
+---
+<style>
+    .popup-bg {
+      background: rgba(24, 24, 27, 0.92); /* #18181b con opacidad */
+      backdrop-filter: blur(2px);
+    }
+    .popup-anim {
+      animation: popupIn 0.3s cubic-bezier(.4,2,.6,1) both;
+    }
+    @keyframes popupIn {
+      0% { transform: scale(0.95) translateY(30px); opacity: 0; }
+      100% { transform: scale(1) translateY(0); opacity: 1; }
+    }
+    .hidden { display: none !important; }
+    .popup-border {
+      border: 2px solid #fbbf24;
+      box-shadow: 0 0 0 4px #f8717133, 0 8px 32px 0 #18181b99;
+    }
+    .popup-btn {
+      background: linear-gradient(90deg, #fbbf24 0%, #f87171 100%);
+      color: #18181b;
+    }
+    .popup-btn:hover {
+      background: linear-gradient(90deg, #f87171 0%, #fbbf24 100%);
+      color: #18181b;
+      filter: brightness(1.1);
+    }
+    .popup-close {
+      color: #fbbf24;
+      transition: color 0.2s;
+    }
+    .popup-close:hover {
+      color: #f87171;
+    }
+  </style>
+  
+  <div id="contact-popup" class="fixed inset-0 z-50 flex items-center justify-center popup-bg hidden">
+    <div class="relative bg-[#18181b] rounded-2xl popup-border max-w-lg w-full p-8 popup-anim">
+      <button
+        class="absolute top-4 right-4 text-2xl popup-close"
+        aria-label="Cerrar"
+        id="close-contact-popup"
+        type="button"
+      >
+        &times;
+      </button>
+      <h2 class="text-2xl md:text-3xl font-extrabold text-center mb-4" style="color:#fbbf24;">
+        ¿Listo para transformar tu inglés?
+      </h2>
+      <p class="text-center mb-6" style="color:#f87171;">
+        Déjanos tus datos y te contactaremos para resolver todas tus dudas y ayudarte a dar el siguiente paso.
+      </p>
+      <form
+        class="flex flex-col gap-4"
+        name="contacto"
+        method="POST"
+      >
+        <input
+          type="text"
+          name="nombre"
+          placeholder="Tu nombre"
+          required
+          class="px-4 py-3 rounded-lg bg-[#1a1b23] text-white border border-[#fbbf24] focus:outline-none focus:ring-2 focus:ring-[#fbbf24]"
+        />
+        <input
+          type="email"
+          name="email"
+          placeholder="Tu correo electrónico"
+          required
+          class="px-4 py-3 rounded-lg bg-[#1a1b23] text-white border border-[#fbbf24] focus:outline-none focus:ring-2 focus:ring-[#fbbf24]"
+        />
+        <textarea
+          name="mensaje"
+          placeholder="¿En qué podemos ayudarte?"
+          rows="3"
+          required
+          class="px-4 py-3 rounded-lg bg-[#1a1b23] text-white border border-[#fbbf24] focus:outline-none focus:ring-2 focus:ring-[#fbbf24]"
+        ></textarea>
+        <button
+          type="submit"
+          class="mt-2 px-6 py-3 rounded-lg font-bold shadow-lg popup-btn transition"
+        >
+          Enviar mensaje
+        </button>
+      </form>
+    </div>
+  </div>
+  
+  <script is:inline>
+    // Función global para abrir el popup
+    window.abrirPopupContacto = function() {
+      document.getElementById('contact-popup').classList.remove('hidden');
+    };
+    // Cerrar al hacer click en la X
+    document.addEventListener('DOMContentLoaded', () => {
+      document.getElementById('close-contact-popup').onclick = function() {
+        document.getElementById('contact-popup').classList.add('hidden');
+      };
+      // Cerrar al hacer click fuera del modal
+      document.getElementById('contact-popup').onclick = function(e) {
+        if (e.target === this) this.classList.add('hidden');
+      };
+    });
+
+    // Función global para abrir el popup
+  window.abrirPopupContacto = function() {
+    document.getElementById('contact-popup').classList.remove('hidden');
+  };
+  // Cerrar al hacer click en la X
+  document.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('close-contact-popup').onclick = function() {
+      document.getElementById('contact-popup').classList.add('hidden');
+    };
+    // Cerrar al hacer click fuera del modal
+    document.getElementById('contact-popup').onclick = function(e) {
+      if (e.target === this) this.classList.add('hidden');
+    };
+
+    // Mostrar popup al llegar al final de la página (solo una vez)
+    let popupMostrado = false;
+    window.addEventListener('scroll', function() {
+      if (popupMostrado) return;
+      const scrollY = window.scrollY || window.pageYOffset;
+      const windowHeight = window.innerHeight;
+      const bodyHeight = document.body.offsetHeight;
+      // Si el usuario está a menos de 100px del final
+      if (scrollY + windowHeight >= bodyHeight - 100) {
+        popupMostrado = true;
+        window.abrirPopupContacto();
+      }
+    });
+  });
+  </script>

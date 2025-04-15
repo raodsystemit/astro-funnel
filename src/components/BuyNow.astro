@@ -1,0 +1,85 @@
+---
+const {
+  precioOriginal = 120,
+  precioDescuento = 59,
+  buyLink = "#comprar"
+} = Astro.props;
+---
+
+<section class="py-16 bg-[#1a1b23] " style="margin-bottom: -2px;">
+  <div class="max-w-6xl mx-auto px-4">
+    <div class="bg-[#23243a] rounded-xl shadow-lg p-8 text-center">
+      <h2 class="text-3xl md:text-4xl font-extrabold text-white mb-4">
+        ¡Compra ahora y obtén un <span class="text-yellow-400">descuento especial!</span>
+      </h2>
+      <div id="timer" class="flex items-center justify-center gap-2 mb-6">
+        <span class="bg-gray-800 text-yellow-400 font-mono px-3 py-1 rounded text-lg" id="hours">24</span>
+        <span class="text-yellow-400 font-bold">:</span>
+        <span class="bg-gray-800 text-yellow-400 font-mono px-3 py-1 rounded text-lg" id="minutes">00</span>
+        <span class="text-yellow-400 font-bold">:</span>
+        <span class="bg-gray-800 text-yellow-400 font-mono px-3 py-1 rounded text-lg" id="seconds">00</span>
+      </div>
+      <div class="flex items-center justify-center gap-4 my-6">
+        <span class="text-xl text-gray-400 line-through">${precioOriginal}</span>
+        <span class="text-4xl font-extrabold text-green-400">${precioDescuento}</span>
+      </div>
+      <p class="text-lg text-gray-300 mb-8">
+        Aprovecha esta oferta por tiempo limitado y comienza a dominar el inglés hoy mismo.
+      </p>
+      <a
+        href={buyLink}
+        class="hover:scale-110 inline-block px-8 py-3 bg-yellow-400 text-gray-900 font-semibold rounded-lg shadow hover:bg-yellow-500 duration-500 ease-in-out text-lg"
+      >
+        ¡Comprar ahora!
+      </a>
+    </div>
+  </div>
+  <script type="module">
+    const TIMER_KEY = "oferta-timer-inicio";
+    const DURATION = 24 * 60 * 60 * 1000; // 24 horas en ms
+
+    function getOrSetStartTime() {
+      let start = localStorage.getItem(TIMER_KEY);
+      const now = Date.now();
+      if (!start || isNaN(Number(start)) || now - Number(start) >= DURATION) {
+        // Si no hay inicio o ya pasó el tiempo, reinicia
+        start = now;
+        localStorage.setItem(TIMER_KEY, start);
+      }
+      return Number(start);
+    }
+
+    function updateTimerDisplay(msLeft) {
+      const totalSeconds = Math.max(0, Math.floor(msLeft / 1000));
+      const hours = String(Math.floor(totalSeconds / 3600)).padStart(2, "0");
+      const minutes = String(Math.floor((totalSeconds % 3600) / 60)).padStart(2, "0");
+      const seconds = String(totalSeconds % 60).padStart(2, "0");
+      document.getElementById("hours").textContent = hours;
+      document.getElementById("minutes").textContent = minutes;
+      document.getElementById("seconds").textContent = seconds;
+    }
+
+    function startTimer() {
+      let startTime = getOrSetStartTime();
+
+      function tick() {
+        const now = Date.now();
+        let msLeft = DURATION - (now - startTime);
+
+        if (msLeft <= 0) {
+          // Reinicia el temporizador
+          startTime = now;
+          localStorage.setItem(TIMER_KEY, startTime);
+          msLeft = DURATION;
+        }
+
+        updateTimerDisplay(msLeft);
+      }
+
+      tick();
+      setInterval(tick, 1000);
+    }
+
+    startTimer();
+  </script>
+</section>

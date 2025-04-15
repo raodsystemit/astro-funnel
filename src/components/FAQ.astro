@@ -1,0 +1,72 @@
+---
+const faqs = [
+  {
+    pregunta: "¿Necesito conocimientos previos de inglés?",
+    respuesta: "No, el curso está diseñado para todos los niveles, desde principiantes hasta quienes desean perfeccionar su inglés."
+  },
+  {
+    pregunta: "¿Cuánto tiempo necesito para completar el curso?",
+    respuesta: "Puedes avanzar a tu propio ritmo. Algunos estudiantes completan el curso en pocas semanas, otros prefieren tomarse más tiempo. ¡Tú decides!"
+  },
+  {
+    pregunta: "¿El acceso es realmente de por vida?",
+    respuesta: "Sí, con un solo pago tendrás acceso ilimitado al curso y a todas las actualizaciones futuras."
+  },
+  {
+    pregunta: "¿Qué pasa si no me gusta el curso?",
+    respuesta: "Tienes 7 días para probar el curso sin riesgo. Si no es lo que esperabas, te devolvemos tu dinero."
+  },
+  {
+    pregunta: "¿Puedo acceder desde cualquier dispositivo?",
+    respuesta: "Sí, nuestra plataforma es compatible con computadoras, tablets y smartphones."
+  }
+];
+---
+
+<section class="py-16 bg-[#1a1b23]">
+  <div class="max-w-2xl mx-auto px-4 max-w-6xl mx-auto px-4">
+    <h2 class="text-3xl md:text-4xl font-extrabold text-white mb-10 text-center">
+      Preguntas Frecuentes (FAQ)
+    </h2>
+    <div class="space-y-6" id="faq-list">
+      {faqs.map((faq, idx) => (
+        <div class="bg-[#23243a] rounded-xl shadow-lg p-6">
+          <button
+            type="button"
+            class="w-full flex justify-between items-center text-left focus:outline-none"
+            data-faq-idx={idx}
+          >
+            <span class="text-lg font-bold text-yellow-400">{faq.pregunta}</span>
+            <svg class="w-5 h-5 text-yellow-400 transition-transform duration-200" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
+          <div class="faq-answer mt-3 text-gray-300 hidden">
+            {faq.respuesta}
+          </div>
+        </div>
+      ))}
+    </div>
+    <script type="module">
+      // Acordeón FAQ
+      const faqList = document.getElementById('faq-list');
+      if (faqList) {
+        faqList.querySelectorAll('button[data-faq-idx]').forEach((btn, idx) => {
+          btn.addEventListener('click', () => {
+            const answer = btn.parentElement.querySelector('.faq-answer');
+            const icon = btn.querySelector('svg');
+            const isOpen = !answer.classList.contains('hidden');
+            // Cierra todos
+            faqList.querySelectorAll('.faq-answer').forEach(a => a.classList.add('hidden'));
+            faqList.querySelectorAll('svg').forEach(i => i.style.transform = '');
+            // Abre el seleccionado si estaba cerrado
+            if (!isOpen) {
+              answer.classList.remove('hidden');
+              icon.style.transform = 'rotate(180deg)';
+            }
+          });
+        });
+      }
+    </script>
+  </div>
+</section>

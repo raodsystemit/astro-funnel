@@ -1,27 +1,27 @@
 ---
 const beneficios = [
   {
-    tituloNormal: "Aprende Rápido",
-    tituloResaltado: "y Fácil",
+    tituloNormal: "Más de",
+    tituloResaltado: "60 lecciones intensivas",
     color: "text-blue-600",
-    subtitulo: "Nuestro método intensivo te permite avanzar en semanas lo que normalmente tomaría meses.",
-    imagen: "https://placehold.co/400x250?text=Rápido+Fácil",
+    subtitulo: "Cada lección está cuidadosamente estructurada para que avances paso a paso, sin sentirte abrumado.",
+    imagen: "english-7173174_1280.jpg",
     alt: "Aprende rápido y fácil",
   },
   {
-    tituloNormal: "Clases Dinámicas",
-    tituloResaltado: "y Entretenidas",
+    tituloNormal: "Acceso",
+    tituloResaltado: "de por vida",
     color: "text-green-600",
-    subtitulo: "Lecciones interactivas y ejercicios prácticos para que nunca te aburras y siempre avances.",
-    imagen: "https://placehold.co/400x250?text=Dinámico+Entretenido",
+    subtitulo: "Con un solo pago, tendrás acceso ilimitado al curso, para que puedas repasar y reforzar tus conocimientos cuando lo necesites.",
+    imagen: "virtual-learning-5550480_1280.jpg",
     alt: "Clases dinámicas y entretenidas",
   },
   {
-    tituloNormal: "Resultados Garantizados",
-    tituloResaltado: "para Todos los Niveles",
+    tituloNormal: "Método",
+    tituloResaltado: "probado",
     color: "text-yellow-500",
-    subtitulo: "No importa tu nivel actual, verás progreso real y medible desde la primera semana.",
-    imagen: "https://placehold.co/400x250?text=Resultados+Garantizados",
+    subtitulo: "Miles de estudiantes ya han transformado su vida aprendiendo inglés con nuestro sistema.",
+    imagen: "college-students-3990783_1280.jpg",
     alt: "Resultados garantizados",
   },
 ];
@@ -29,14 +29,15 @@ const beneficios = [
 
 <section
   id="beneficios"
-  class="py-16 bg-gradient-to-b from-blue-50 via-white to-blue-100"
+  class="py-16 bg-[#1a1b23]"
+  style="margin-bottom: -2px;"
 >
   <div class="max-w-6xl mx-auto px-4">
-    <h2 class="text-3xl md:text-4xl font-extrabold text-center text-gray-900 mb-12">
+    <h2 class="text-3xl md:text-4xl font-extrabold text-center text-white mb-12">
       Beneficios de Nuestro Curso Intensivo
     </h2>
     {beneficios.map((beneficio, idx) => (
-      <div class={`flex flex-col md:flex-row ${idx % 2 === 1 ? "md:flex-row-reverse" : ""} items-center gap-10 py-10`} key={idx}>
+      <div class={`flex flex-col md:flex-row ${idx % 2 === 1 ? "md:flex-row-reverse" : ""} items-center gap-10 py-10`}>
         <div class="flex-1 w-full max-w-xl mx-auto">
           <img
             src={beneficio.imagen}
@@ -47,9 +48,10 @@ const beneficios = [
         </div>
         <div class="flex-1 w-full text-center md:text-left">
           <h3 class="text-2xl md:text-3xl font-bold mb-4">
-            <span class={beneficio.color}>{beneficio.tituloNormal}</span> {beneficio.tituloResaltado}
+            <span class="text-white">{beneficio.tituloNormal}</span>{" "}
+            <span class={beneficio.color}>{beneficio.tituloResaltado}</span>
           </h3>
-          <p class="text-lg text-gray-700">{beneficio.subtitulo}</p>
+          <p class="text-lg text-gray-300">{beneficio.subtitulo}</p>
         </div>
       </div>
     ))}

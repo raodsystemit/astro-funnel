@@ -1,0 +1,82 @@
+---
+const { videoSrc, poster, title = "Video de presentación" } = Astro.props;
+---
+
+<style>
+  .video-wrapper {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    background: #000;
+  }
+  .video-poster {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    cursor: pointer;
+    transition: filter 0.2s;
+  }
+  .video-poster:hover {
+    filter: brightness(0.8);
+  }
+  .play-button {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0,0,0,0.5);
+    border: none;
+    border-radius: 50%;
+    width: 64px;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+  .play-icon {
+    width: 32px;
+    height: 32px;
+    fill: white;
+  }
+</style>
+
+<div class="video-wrapper" id="video-wrapper">
+  <img
+    src={poster}
+    alt={`Miniatura de ${title}`}
+    class="video-poster"
+    id="video-poster"
+    loading="lazy"
+  />
+  <button class="play-button" id="play-btn" aria-label="Reproducir video">
+    <svg class="play-icon" viewBox="0 0 64 64">
+      <circle cx="32" cy="32" r="32" opacity="0.5"/>
+      <polygon points="26,20 50,32 26,44"/>
+    </svg>
+  </button>
+</div>
+
+<script type="module" is:inline>
+  const wrapper = document.getElementById("video-wrapper");
+  const playBtn = document.getElementById("play-btn");
+  const poster = document.getElementById("video-poster");
+
+  playBtn.addEventListener("click", () => {
+    const video = document.createElement("video");
+    video.src = "{videoSrc}";
+    video.poster = "{poster}";
+    video.title = "{title}";
+    video.controls = true;
+    video.autoplay = true;
+    video.className = "video-poster";
+    video.style.width = "100%";
+    video.style.height = "100%";
+    wrapper.innerHTML = "";
+    wrapper.appendChild(video);
+    video.play();
+  });
+</script>

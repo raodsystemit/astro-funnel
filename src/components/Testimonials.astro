@@ -1,0 +1,48 @@
+---
+const testimonios = [
+  {
+    nombre: "Carlos M.",
+    mensaje: "Nunca pensé que aprender inglés fuera tan fácil. El curso es muy dinámico y las imágenes me ayudaron muchísimo a recordar las palabras y frases. ¡Lo recomiendo al 100%!",
+    foto: "https://randomuser.me/api/portraits/men/32.jpg"
+  },
+  {
+    nombre: "María G.",
+    mensaje: "Me encantó la flexibilidad del curso. Pude estudiar a mi ritmo y los quizzes me motivaron a seguir avanzando. Ahora puedo comunicarme en inglés en mi trabajo y con amigos extranjeros.",
+    foto: "https://randomuser.me/api/portraits/women/44.jpg"
+  },
+  {
+    nombre: "Luis R.",
+    mensaje: "La mejor inversión que he hecho. El acceso de por vida me permite repasar cuando quiero y siempre encuentro algo nuevo que aprender.",
+    foto: "https://randomuser.me/api/portraits/men/65.jpg"
+  }
+  // Puedes agregar más testimonios aquí
+];
+
+// Función para renderizar estrellas como string HTML
+function renderEstrellas(cantidad = 5) {
+  let estrellas = "";
+  for (let i = 0; i < 5; i++) {
+    estrellas += `<svg class="w-5 h-5 ${i < cantidad ? "text-yellow-400" : "text-gray-400"} inline" fill="currentColor" viewBox="0 0 20 20">
+      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.967a1 1 0 00.95.69h4.175c.969 0 1.371 1.24.588 1.81l-3.38 2.455a1 1 0 00-.364 1.118l1.287 3.966c.3.922-.755 1.688-1.54 1.118l-3.38-2.454a1 1 0 00-1.175 0l-3.38 2.454c-.784.57-1.838-.196-1.54-1.118l1.287-3.966a1 1 0 00-.364-1.118L2.049 9.394c-.783-.57-.38-1.81.588-1.81h4.175a1 1 0 00.95-.69l1.286-3.967z" />
+    </svg>`;
+  }
+  return estrellas;
+}
+---
+<section id="testimonios" class="py-16 bg-[#1a1b23]" style="margin-bottom: -2px;">
+  <div class="max-w-6xl mx-auto px-4">
+    <h2 class="text-3xl md:text-4xl font-extrabold text-white mb-10 text-center">
+      Lo que dicen nuestros estudiantes
+    </h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      {testimonios.map((testimonio) => (
+        <div class="bg-[#23243a] rounded-xl shadow-lg p-6 flex flex-col items-center text-center">
+          <img src={testimonio.foto} alt={`Foto de ${testimonio.nombre}`} class="w-20 h-20 rounded-full mb-4 border-4 border-yellow-400 shadow" />
+          <div class="flex justify-center mb-2" set:html={renderEstrellas(5)} />
+          <p class="text-gray-300 mb-4 italic">"{testimonio.mensaje}"</p>
+          <span class="text-yellow-400 font-semibold">{testimonio.nombre}</span>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

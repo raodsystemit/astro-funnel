@@ -1,22 +1,29 @@
 ---
+import Video from "./Video.astro"
 const heroTitle = "¡Domina el Inglés en Tiempo Récord con Nuestro Curso Intensivo!";
 const heroSubtitle = "¿Te imaginas hablando inglés con confianza en solo unas semanas? Ahora es posible gracias a nuestro Curso Intensivo de Inglés, diseñado para que aprendas más de 60 lecciones de manera fácil, rápida y entretenida, sin importar tu nivel actual.";
-const videoUrl = "https://www.youtube.com/embed/dQw4w9WgXcQ"; // Cambia por tu video
-const buyLink = "#comprar"; // Cambia por tu sección o enlace de compra
+const videoUrl = "promocion easyway3 - Compressed with FlexClip.mp4";
+const buyLink = "#comprar";
 ---
-
-<section id="inicio" class="pt-32 pb-16 bg-gradient-to-b from-white to-blue-50">
-  <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center px-4 gap-10">
+<section
+  id="inicio"
+  class="pt-32 pb-0"
+  style="
+    background: radial-gradient(circle at 20% 20%, #fbbf24 0%, #f87171 40%, #18181b 100%);
+  "
+>
+  <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center px-4 gap-10 pb-16">
     <div class="flex-1 text-center md:text-left">
-        <h1 class="text-4xl md:text-4xl font-extrabold text-gray-900 mb-6 leading-tight">
-            <span class="text-blue-600">¡Domina el Inglés</span> en Tiempo Récord con Nuestro Curso Intensivo!
-          </h1>
-          <p class="text-lg md:text text-gray-700 mb-8">
-            ¿Te imaginas hablando inglés con confianza en solo unas semanas? Ahora es posible gracias a nuestro Curso Intensivo de Inglés, diseñado para que aprendas <span class="font-bold text-blue-700">más de 60 lecciones</span> de manera fácil, rápida y entretenida, sin importar tu nivel actual.
-          </p>
-      <a href={buyLink} class="inline-block px-8 py-3 bg-blue-600 text-white font-semibold rounded-lg shadow hover:bg-blue-700 transition-colors duration-200 text-lg">
-        ¡Comprar ahora!
-      </a>
+      <h1 class="text-4xl md:text-4xl font-extrabold text-white mb-6 leading-tight drop-shadow">
+        <span class="text-yellow-400">¡Domina el Inglés</span> en Tiempo Récord con Nuestro Curso Intensivo!
+      </h1>
+      <p class="text-lg md:text text-gray-200 mb-8">
+        ¿Te imaginas hablando inglés con confianza en solo unas semanas? Ahora es posible gracias a nuestro Curso Intensivo de Inglés, diseñado para que aprendas <span class="font-bold text-yellow-300">más de 60 lecciones</span> de manera fácil, rápida y entretenida, sin importar tu nivel actual.
+      </p>
+      <a href={buyLink} 
+      class="hover:scale-110 inline-block px-8 py-3 bg-yellow-400 text-gray-900 font-semibold rounded-lg shadow hover:bg-yellow-500 duration-500 ease-in-out text-lg">
+     ¡Comprar ahora!
+   </a>
     </div>
     <div class="flex-1 w-full max-w-xl mx-auto">
       <div
@@ -33,5 +40,27 @@ const buyLink = "#comprar"; // Cambia por tu sección o enlace de compra
         ></iframe>
       </div>
     </div>
+  </div>
+  <!-- SVG Wave: NO absolute, ocupa todo el ancho y no tapa el contenido -->
+  <div class="w-full h-32 overflow-hidden" style="margin-bottom: -2px;">
+    <svg
+      viewBox="0 0 1440 150"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      class="w-full h-full block"
+      preserveAspectRatio="none"
+    >
+      <path
+        fill="#1a1b23"
+        stroke="none"
+        d="
+          M0,80
+          C360,120 1080,0 1440,80
+          L1440,150
+          L0,150
+          Z
+        "
+      />
+    </svg>
   </div>
 </section>
