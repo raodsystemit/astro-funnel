@@ -1,0 +1,57 @@
+---
+const beneficios = [
+  {
+    tituloNormal: "Aprende Rápido",
+    tituloResaltado: "y Fácil",
+    color: "text-blue-600",
+    subtitulo: "Nuestro método intensivo te permite avanzar en semanas lo que normalmente tomaría meses.",
+    imagen: "https://placehold.co/400x250?text=Rápido+Fácil",
+    alt: "Aprende rápido y fácil",
+  },
+  {
+    tituloNormal: "Clases Dinámicas",
+    tituloResaltado: "y Entretenidas",
+    color: "text-green-600",
+    subtitulo: "Lecciones interactivas y ejercicios prácticos para que nunca te aburras y siempre avances.",
+    imagen: "https://placehold.co/400x250?text=Dinámico+Entretenido",
+    alt: "Clases dinámicas y entretenidas",
+  },
+  {
+    tituloNormal: "Resultados Garantizados",
+    tituloResaltado: "para Todos los Niveles",
+    color: "text-yellow-500",
+    subtitulo: "No importa tu nivel actual, verás progreso real y medible desde la primera semana.",
+    imagen: "https://placehold.co/400x250?text=Resultados+Garantizados",
+    alt: "Resultados garantizados",
+  },
+];
+---
+
+<section
+  id="beneficios"
+  class="py-16 bg-gradient-to-b from-blue-50 via-white to-blue-100"
+>
+  <div class="max-w-6xl mx-auto px-4">
+    <h2 class="text-3xl md:text-4xl font-extrabold text-center text-gray-900 mb-12">
+      Beneficios de Nuestro Curso Intensivo
+    </h2>
+    {beneficios.map((beneficio, idx) => (
+      <div class={`flex flex-col md:flex-row ${idx % 2 === 1 ? "md:flex-row-reverse" : ""} items-center gap-10 py-10`} key={idx}>
+        <div class="flex-1 w-full max-w-xl mx-auto">
+          <img
+            src={beneficio.imagen}
+            alt={beneficio.alt}
+            class="rounded-xl shadow-lg w-full h-auto object-cover"
+            loading="lazy"
+          />
+        </div>
+        <div class="flex-1 w-full text-center md:text-left">
+          <h3 class="text-2xl md:text-3xl font-bold mb-4">
+            <span class={beneficio.color}>{beneficio.tituloNormal}</span> {beneficio.tituloResaltado}
+          </h3>
+          <p class="text-lg text-gray-700">{beneficio.subtitulo}</p>
+        </div>
+      </div>
+    ))}
+  </div>
+</section>
